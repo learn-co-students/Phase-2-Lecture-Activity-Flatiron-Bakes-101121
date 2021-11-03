@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="App">
       <Header bakeryName="FlatironBakes" slogan="live love code bake repeat"/>
-      <Search search={search} handleSearch={handleSearch}/>
-      <CakeContainer cakeList={cakeList}/>
+      <Search />
+      <CakeContainer cakeList={cakes}/>
 
     </div>
   );
