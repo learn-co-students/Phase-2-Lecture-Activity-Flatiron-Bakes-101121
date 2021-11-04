@@ -1,3 +1,4 @@
+import {useState} from 'react'
 //Components
 import CakeContainer from "./CakeContainer";
 import Header from "./Header";
@@ -7,13 +8,15 @@ import Search from "./Search";
 import {cakes} from "../data/cakesData"
 
 function App() {
+  const [cakeList, setCakeList] = useState(cakes)
+
   
   
   return (
     <div className="App">
       <Header bakeryName="FlatironBakes" slogan="live love code bake repeat"/>
       <Search />
-      <CakeContainer cakeList={cakes}/>
+      <CakeContainer cakeList={cakeList}/>
 
     </div>
   );
