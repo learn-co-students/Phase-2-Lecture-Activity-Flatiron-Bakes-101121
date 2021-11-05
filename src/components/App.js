@@ -9,13 +9,18 @@ import {cakes} from "../data/cakesData"
 
 function App() {
   const [cakeList, setCakeList] = useState(cakes)
+  const [search, setSearch] = useState('')
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    setCakeList(cakes.filter(cake => cake.flavor.includes(e.target.value)))
+  }
   
   
   return (
     <div className="App">
       <Header bakeryName="FlatironBakes" slogan="live love code bake repeat"/>
-      <Search />
+      <Search search={search} handleSearch={handleSearch}/>
       <CakeContainer cakeList={cakeList}/>
 
     </div>
