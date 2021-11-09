@@ -1,16 +1,25 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 //Components
 import CakeContainer from "./CakeContainer";
 import Header from "./Header";
 import Search from "./Search";
 import Form from "./Form"
 
-//data
-import {cakes} from "../data/cakesData"
+
 
 function App() {
-  const [cakeList, setCakeList] = useState(cakes)
+  const [cakes, setCakes] = useState([])
+  const [cakeList, setCakeList] = useState([])
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    fetch('http://localhost:4000/cakes')
+    .then(res => res.json())
+    .then(data => {
+      setCakes(data)
+      setCakeList(data)
+    })
+  },[])
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
@@ -18,7 +27,6 @@ function App() {
   }
 
   const handleAddCake = (cake) => {
-
     setCakeList([cake, ...cakeList])
   }
 
