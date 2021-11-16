@@ -1,4 +1,6 @@
 import {useState, useEffect} from 'react'
+import { Route, Switch } from 'react-router';
+
 //Components
 import CakeContainer from "./CakeContainer";
 import Header from "./Header";
@@ -8,11 +10,11 @@ import CakeDetail from './CakeDetail'
 
 
 
+
 function App() {
   const [cakes, setCakes] = useState([])
   const [cakeList, setCakeList] = useState([])
   const [search, setSearch] = useState('')
-  const [cakeDetail, setCakeDetail] = useState(null)
 
   useEffect(() => {
     fetch('http://localhost:4000/cakes')
@@ -42,22 +44,28 @@ function App() {
     setCakeList(cakes.filter(cake => cake.flavor.includes(e.target.value)))
   }
 
-  const handleCakeDetail = (cakeId) => {
-    setCakeDetail(cakeId)
-  }
+ 
 
 
-
-  
-  
   return (
     <div className="App">
       <Header bakeryName="FlatironBakes" slogan="live love code bake repeat"/>
-      <Form handleAddCake={handleAddCake}/>
-      {cakeDetail?<CakeDetail cakeId={cakeDetail}/>:null}
-      <Search search={search} handleSearch={handleSearch}/>
-      <CakeContainer cakeList={cakeList} handleCakeDetail={handleCakeDetail}/>
+      <Switch>
 
+        <Route path="/cakes/new">
+          <Form handleAddCake={handleAddCake}/>
+        </Route>
+
+        <Route path="/cakes/:id">
+          <CakeDetail />
+        </Route>
+
+        <Route path="/cakes">
+          <Search search={search} handleSearch={handleSearch}/>
+          <CakeContainer cakeList={cakeList} />
+        </Route>
+  
+      </Switch>
     </div>
   );
 };

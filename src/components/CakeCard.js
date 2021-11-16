@@ -1,5 +1,7 @@
 import {useState} from 'react'
-function CakeCard({cakeObj:{flavor,size = '6" cake',price, id}, handleCakeDetail}){
+import {Link} from 'react-router-dom'
+
+function CakeCard({cakeObj:{flavor,size = '6" cake',price, id}}){
     const [liked, setLiked] = useState(false)
 
     const handleLike = () =>{
@@ -11,7 +13,7 @@ return(
             <p>Size:{size}</p>
             <p>Price: {price}</p>
             <p onClick={handleLike}>{liked?'♥':'♡'}</p>
-            <button onClick={() => handleCakeDetail(id)}>Click for Details</button>
+            <Link to={`/cakes/${id}`}>Click for Details</Link>
         </>
     )
 }
